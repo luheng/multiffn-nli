@@ -5,7 +5,7 @@ from __future__ import division, print_function
 """
 Script to train an RTE LSTM.
 """
-
+import os
 import sys
 import argparse
 import tensorflow as tf
@@ -63,7 +63,17 @@ if __name__ == '__main__':
                         default='adagrad',
                         choices=['adagrad', 'adadelta', 'adam'])
 
+    parser.add_argument('--device', help='Visible GPUs (0,1, ...)',
+                        default='0')
+
     args = parser.parse_args()
+
+    # set cuda visible device.
+    if args.device != None:
+      print ('Using device: %s' % args.device)
+      os.environ['CUDA_VISIBLE_DEVICES'] = args.device
+    else:
+      os.environ['CUDA_VISIBLE_DEVICES'] = ''
 
     utils.config_logger(args.verbose)
     logger = utils.get_logger('train')

@@ -36,7 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('dataset',
                         help='JSONL or TSV file with data to evaluate on')
     parser.add_argument('embeddings', help='Numpy embeddings file')
-    parser.add_argument('vocabulary',
+    parser.add_argument('--vocab',
                         help='Text file with embeddings vocabulary')
     parser.add_argument('-v',
                         help='Verbose', action='store_true', dest='verbose')
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     model_class = utils.get_model_class(params)
     model = model_class.load(args.model, sess)
     word_dict, embeddings = ioutils.load_embeddings(args.embeddings,
-                                                    args.vocabulary,
+                                                    args.vocab,
                                                     generate=False,
                                                     load_extra_from=args.model,
                                                     normalize=True)
